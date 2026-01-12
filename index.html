@@ -1,17 +1,22 @@
 <!--
   Main page
-  Last edited: 01/08/2025
-  Last commit: Initial commit - A2
+  Last edited: 01/12/2025
+  Last commit: index.html progress
+-->
+<!--
+  Set up launcher.html and add it to every file's list of
+  pages.
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Main Page &#x2014; Program Development in Java</title>
   <!--
     Using &#x instead of &# refers to hexadecimal (UTF list) rather than decimal (HTML entity list).
   -->
+  <title>Main Page &#x2014; Program Development in Java</title>
+  <link rel="stylesheet" href="style/main.css" />
 </head>
 <body>
   <header>
@@ -38,6 +43,7 @@
         <li><a href="directional-movement.html">Directional Movement</a></li>
         <li><a href="procedural-graphics.html">Procedural Graphics (with AWT and custom methods)</a></li>
         <li><a href="networking.html">Basic Network Communication</a></li>
+        <li><a href="launcher.html">Launcher</a></li>
       </ul>
     </nav>
     <h1>Program Development in Java</h1>
@@ -45,7 +51,36 @@
     <hr />
   </header>
   <main>
-    <p>Initial commit</p>
+    <h3>Overview</h3>
+    <p>
+      This website demonstrates what I have learned in Java since I have started programming in it.
+      This website shows the homemade elements I have used various times in my projects. I wish to
+      share this knowledge in the form of this website to help anyone who may need it. These classes
+      and methods can become very useful if you use them correctly and in the right places.
+      <br /><br />
+      In <i>Java's Swing Library</i>, I show the basics of using the <span class="code">java.awt</span>
+      abstract library, as well as its forerunning and non-abstract library, <span class="code">javax.swing</span>.
+      <br /><br />
+      In <i>KeyChecker</i>, I show the uses of my custom-made class <span class="code">KeyChecker</span>,
+      which extends <span class="code">java.awt.event.KeyAdapter</span>. This class is used to detect key
+      inputs from a <span class="code">java.awt.Component</span> and to provide a basic method for checking
+      if a key is pressed according to this Component.
+      <br /><br />
+      In <i>Hitboxes</i>, I show how to detect collision with hitboxes and how to relate them to on-screen
+      elements.
+      <br /><br />
+      In <i>Acceleration</i>, I show how acceleration can be performed visually, as well as the proper way to
+      make a project sleep (interrupt the thread for a set time).
+      <br /><br />
+      In <i>Rotating Labels</i> or <i>RJLabels</i>, I show how you can procedurally rotate a <span class="code">javax.swing.JLabel</span>
+      (or really any AWT Component), and how to override methods, add in your own code, and call the previous
+      method as a result.
+      <br /><br />
+      In <i>Directional Movement</i>, I can show how you can use <span class="code">Math.sin()</span> and <span class="code">Math.cos()</span>
+      to convert an integer value responsible for resembling a direction in degrees into two separate values, one
+      for X movement, and the other for Y movement. I will also show how to convert these values back into a single
+      value with <span class="code">Math.atan2()</span>.
+    </p>
   </main>
   <footer>
     <hr />

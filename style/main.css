@@ -1,0 +1,8 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.code {
+  font-family:'Courier New', Courier, monospace;
+  background-color: lightgray;
+  border-radius: 5px;
+}
