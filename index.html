@@ -1,7 +1,10 @@
 <!--
   Main page
   Last edited: 01/12/2026
-  Last commit: index.html progress
+  Last commit: index.html progress - A2
+-->
+<!--
+  Work on Basic Network Communication and Launcher summaries.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +46,7 @@
         <li><a href="launcher.html">Launcher</a></li>
       </ul>
     </nav>
+    <hr />
     <h1>Program Development in Java</h1>
     <h2>Main Page</h2>
     <hr />
@@ -54,44 +58,152 @@
       This website shows the homemade elements I have used various times in my projects. I wish to
       share this knowledge in the form of this website to help anyone who may need it. These classes
       and methods can become very useful if you use them correctly and in the right places.
-      <br /><br />
-      <!--
-        Elements with the class value "code" will have a static-width font, and a gray and slightly
-        curved background (see style/main.css). Therefore, <span> elements with this class value
-        will have this effect.
-      -->
-      In <i>Java's Swing Library</i>, I show the basics of using the <span class="code">java.awt</span>
-      abstract library, as well as its forerunning and non-abstract library, <span class="code">javax.swing</span>.
-      <br /><br />
-      In <i>KeyChecker</i>, I show the uses of my custom-made class <span class="code">KeyChecker</span>,
-      which extends <span class="code">java.awt.event.KeyAdapter</span>. This class is used to detect key
-      inputs from a <span class="code">java.awt.Component</span> and to provide a basic method for checking
-      if a key is pressed according to this Component.
-      <br /><br />
-      In <i>Hitboxes</i>, I show how to detect collision with hitboxes and how to relate them to on-screen
-      elements.
-      <br /><br />
-      In <i>Acceleration</i>, I show how acceleration can be performed visually, as well as the proper way to
-      make a project sleep (interrupt the thread for a set time).
-      <br /><br />
-      In <i>Rotating Labels</i> or <i>RJLabels</i>, I show how you can procedurally rotate a <span class="code">javax.swing.JLabel</span>
-      (or really any AWT Component), and how to override methods, add in your own code, and call the previous
-      method as a result.
-      <br /><br />
-      In <i>Directional Movement</i>, I can show how you can use <span class="code">Math.sin()</span> and <span class="code">Math.cos()</span>
-      to convert an integer value responsible for resembling a direction in degrees into two separate values, one
-      for X movement, and the other for Y movement. I will also show how to convert these values back into a single
-      value with <span class="code">Math.atan2()</span>.
-      <br /><br />
-      In <i>Procedural Graphics</i>, I show how to create shapes with the <span class="code">java.awt.Graphics</span>
-      class, as well as how to make convenience methods for quickly creating these shapes and applying them to
-      <span class="code">javax.swing.ImageIcon</span>.
-      <br /><br />
-      <!--
-        Basic Network Communication
-        Launcher
-      -->
     </p>
+    <ul>
+      <li>
+        <!--
+          Elements with the class value "code" will have a static-width font, and a gray and slightly
+          curved background (see style/main.css). Therefore, <span> elements with this class value
+          will have this effect.
+        -->
+        <p>
+          In <i>Java's Swing Library</i>, I show the basics of using the <span class="code">java.awt</span>
+          abstract library, as well as its forerunning and non-abstract library, <span class="code">javax.swing</span>.
+        </p>
+      </li>
+      <li>
+        <p>
+          In <i>KeyChecker</i>, I show the uses of my custom-made class <span class="code">KeyChecker</span>,
+          which extends <span class="code">java.awt.event.KeyAdapter</span>. This class is used to detect key
+          inputs from a <span class="code">java.awt.Component</span> and to provide a basic method for checking
+          if a key is pressed according to this Component.
+        </p>
+      </li>
+      <li>
+        <p>
+          In <i>Hitboxes</i>, I show how to detect collision with hitboxes and how to relate them to on-screen
+          elements.
+        </p>
+      </li>
+      <li>
+        <p>
+          In <i>Acceleration</i>, I show how acceleration can be performed visually, as well as the proper way to
+          make a project sleep (interrupt the thread for a set time).
+        </p>
+      </li>
+      <li>
+        <p>
+          In <i>Rotating Labels</i> or <i>RJLabels</i>, I show how you can procedurally rotate a <span class="code">javax.swing.JLabel</span>
+          (or really any AWT Component), and how to override methods, add in your own code, and call the previous
+          method as a result.
+        </p>
+      </li>
+      <li>
+        <p>
+          In <i>Directional Movement</i>, I can show how you can use <span class="code">Math.sin()</span> and <span class="code">Math.cos()</span>
+          to convert an integer value responsible for resembling a direction in degrees into two separate values, one
+          for X movement, and the other for Y movement. I will also show how to convert these values back into a single
+          value with <span class="code">Math.atan2()</span>.
+        </p>
+      </li>
+      <li>
+        <p>
+          In <i>Procedural Graphics</i>, I show how to create shapes with the <span class="code">java.awt.Graphics</span>
+          class, as well as how to make convenience methods for quickly creating these shapes and applying them to
+          <span class="code">javax.swing.ImageIcon</span>.
+        </p>
+      </li>
+      <li>
+        <p>
+          In <i>Basic Network Communication</i>, I show some basics with networking in Java, using the <span class="code">java.net</span>
+          library, and its <span class="code">Socket</span> and <span class="code">ServerSocket</span> classes.
+        </p>
+      </li>
+      <li>
+        <p>
+          In <i>Launcher</i>, I show how my Java programs compile and run.
+        </p>
+      </li>
+    </ul>
+    <p>
+      These are the pieces of programming knowledge I will share in this webpage. They mostly relate to each other,
+      except for the <i>Basic Network Communication</i> and <i>Launcher</i> pages. I personally believe that Java is 
+      a great programming language, and I enjoy creating all of my projects from scratch in it, without the use of any
+      commercial engine or platform.
+    </p>
+    <hr />
+    <h3>The Swing Library</h3>
+    <p class="brief">
+      Java's Swing Library is a convenient class dedicated to providing windowing program abilities, as well as having
+      components and containers within it/them. <span class="code">JFrame</span>, <span class="code">JLabel</span>,
+      <span class="code">JPanel</span>, and other core elements (those being <span class="code">JComponent</span>
+      objects and/or <span class="code">JContainer</span> objects).
+      <br /><br />
+    </p>
+    <a class="learn-more" href="swing.html">Click here to learn more about the Swing library.</a>
+    <hr />
+    <h3>KeyChecker</h3>
+    <p class="brief">
+      This is a basic non-static class that listens to the key presses of a AWT Component, and keeps them in a
+      <span class="code">java.util.ArrayList</span>. You can then check the <span class="code">KeyChecker</span>
+      if a certain key is being pressed. When the key is released, the key is removed from the list. Each key is
+      resembled with an integer value, according to the <span class="code">java.awt.event.KeyEvent</span>
+      virtual keyboard integer return values. (e.g. <span class="code">KeyEvent.VK_SPACE</span>,
+      <span class="code">KeyEvent.VK_F</span>, etc.)
+      <br /><br />
+    </p>
+    <a class="learn-more" href="keychecker.html">Click here to learn more about the KeyChecker class.</a>
+    <hr />
+    <h3>Hitboxes</h3>
+    <p class="brief">
+      Here, I show &#x2014; mostly with math &#x2014; how to have two hitboxes detect collision with each other.
+      I start with square hitboxes, but also how I suspect how circular hitboxes collide, though I have not tested
+      this. Afterwards, I show how to correlate a hitbox with an on-screen entity.
+    </p>
+    <a class="learn-more" href="hitboxes.html">Click here to learn more about hitboxes and virtual collision.</a>
+    <hr />
+    <h3>Acceleration</h3>
+    <p class="brief">
+      Here, I show how to recreate acceleration in a virtual environment. Every frame an entity moves a direction,
+      their respective acceleration value increases. Whether they are pressing a key or not, the acceleration values
+      will passively decrease, naturally making an acceleration cap.
+    </p>
+    <a class="learn-more" href="acceleration.html">Click here to learn more about acceleration replication.</a>
+    <hr />
+    <h3>Rotating Labels (RJLabels)</h3>
+    <p class="brief">
+      In this section, I show how to procedurally rotate <span class="code">JLabel</span> objects by overriding
+      their <span class="code">paintComponent()</span> method and using <span class="code">Graphics2D</span> to
+      transform, rotate, and finalize the label's image. This is according to a dedicated <span>rotation</span>
+      variable, measured in degrees. Since <span class="code">Graphics2D</span> takes radians for its
+      orientation-related methods, we also convert degrees into radians.
+    </p>
+    <a class="learn-more" href="rjlabels.html">Click here to learn more about rotating labels.</a>
+    <hr />
+    <h3>Directional Movement</h3>
+    <p class="brief">
+      In this section, I show how to have an on-screen element move in a particular direction measured in degrees.
+      We use <span class="code">Math.sin()</span> and <span class="code">Math.cos()</span> to our advantage to do
+      this. A live demonstration of how sine and cosine work can be found in this page. We convert a single degree-measured
+      value into two separate values, one for X-position movement, and the other for Y-position movement. We can then
+      use that value to adjust our on-screen element's position. I also show how to convert these values back into one,
+      in which I demonstrate another situation where this is useful.
+    </p>
+    <a class="learn-more" href="directional-movement.html">Click here to learn more about orientation-based movement.</a>
+    <hr />
+    <h3>Procedural Graphics</h3>
+    <p class="brief">
+      In this section, I go into how we can create shapes from the <span class="code">Graphics2D</span> class, and then
+      how we can manage them further. I then demonstrate how we can create more convenient methods in a static
+      <span class="code">Shapes</span> class to ease access to these abilities. Within this class, I will also make
+      a method to combine shapes or images into one, effectively making a single final image.
+    </p>
+    <a class="learn-more" href="procedural-graphics.html">Click here to learn more about procedurally creating images.</a>
+    <hr />
+    <h3>Basic Network Communication</h3>
+    <p></p>
+    <a></a>
+    <hr />
   </main>
   <footer>
     <hr />
