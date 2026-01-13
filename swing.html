@@ -1,14 +1,26 @@
 <!--
   Java Swing Library page
-  Last edited: 01/08/2026
-  Last commit: Initial commit - A2
+  Last edited: 01/13/2026
+  Last commit: swing.html progress
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Java Swing &#x2014; Program Development in Java</title>
+  <link rel="stylesheet" href="style/main.css" />
+  <script>
+    function checkAnswer() {
+      let resultLabel = document.getElementById('test-question-result');
+      let correctAnswer = document.getElementById('tq-jcon-purpose');
+      if (correctAnswer.checked) {
+        resultLabel.innerHTML = 'Your answer is correct.';
+      } else {
+        resultLabel.innerHTML = 'Your answer is incorrect. The correct answer is option #3.';
+      }
+    }
+  </script>
 </head>
 <body>
   <header>
@@ -26,12 +38,115 @@
         <li><a href="launcher.html">Launcher</a></li>
       </ul>
     </nav>
+    <hr />
     <h1>Program Development in Java</h1>
     <h2>The javax.swing Library</h2>
     <hr />
   </header>
   <main>
-    <p>Initial commit</p>
+    <!--
+      Talk about:
+        - Output (with images)
+        - AWT class
+        - JComponents & JContainers
+        - JFrames, JLabels, JPanels
+        - Misc. (JButtons, JScrollPanes, JLayeredPanes, JToolBar)
+        - Read more
+    -->
+    <!-- Put Oracle Swing quote here for summarisation -->
+    <h3>Summary</h3>
+    <p>
+      Java's Swing library is used to create an interactible interface for the user, rather than a basic text-based
+      one, or none at all. From windows and text to buttons and sliders, the Swing library is a good pick for programmers'
+      needs when it comes to creating a visual interface for their programs.
+    </p>
+    <figure>
+      <img href="images/#" alt="An image of a Swing window, containing..." />
+      <figcaption>Figure #1: A basic Swing window setup.</figcaption>
+    </figure>
+    <p>
+      Here is an example of a Swing window. There are several aspects to it; the text, the buttons, the scroll bar, and the
+      window itself. These are all elements that can be found within the Swing library, under <span class="code">JFrame</span>,
+      <span class="code">JLabel</span>, <span class="code">JButton</span>, <span class="code">JScrollBar</span>, and
+      <span class="code">JToolBar</span>. <span class="code">ImageIcon</span> and <span class="code">BorderFactory</span>
+      can also be found here.
+    </p>
+    <h3>The AWT Class</h3>
+    <!-- Put an image here -->
+    <p class="brief">
+      The majority (if not all) of Swing's classes and methods come the AWT (Abstract Window Toolkit) class. The AWT class
+      contains many visual interface related content, not unlike Swing. However, AWT's classes are abstract, and are meant
+      to be modified in one way or another. <span class="code">Frame</span>, <span class="code">Window</span>,
+      <span class="code">Label</span>, and <span class="code">Image</span> are all abstract classes within the AWT library.
+      <span class="code">java.applet</span> is another library that takes use of AWT's contents. However, unlike Swing, Applet
+      uses AWT alongside other functions instead of completely basing itself off of it or recreating it.
+    </p>
+    <figure>
+      <img href="images/swing/#" alt="A visual comparison between Swing components and Applet components. Details..." />
+      <figcaption>Figure #2: A visual comparison between Swing components and Applet components. Details...rewrite...</figcaption>
+    </figure>
+    <h3>JComponents & JContainers</h3>
+    <!-- Put an image here -->
+    <p class="brief">
+      Swing consists of <span class="code">JComponent</span> objects and <span class="code">JContainer</span> objects.
+      <span class="code">JComponent</span> objects have their own designated purposes, while <span class="code">JContainer</span>
+      objects, while they also have their own respective uses, are meant to contain <span class="code">JComponent</span>
+      objects or other <span class="code">JContainer</span> objects.
+    </p>
+    <figure>
+      <img href="images/swing/#" alt="A visual demonstration of how JContainers work. Describe..." />
+      <figcaption>Figure #3: A visual demonstration of how JContainers work.</figcaption>
+    </figure>
+    <p class="brief">
+      Here is an example of how JContainers work. They can contain <span class="code">JComponent</span> objects and
+      <span class="code">JContainer</span> objects alike. They can be added with the <span class="code">add()</span>
+      methods and revoked with the <span class="code">remove()</span> commands.
+    </p>
+    <h3>JFrames, JLabels, and JPanels</h3>
+    <!-- Put an image here -->
+    <p class="brief">
+      <span class="code">JFrame</span>, <span class="code">JLabel</span>, and <span class="code">JPanel</span> objects
+      are extensions of either the <span class="code">JComponent</span> class or the <span class="code">JContainer</span>
+      class. Since <span class="code">JFrame</span> and <span class="code">JPanel</span> objects can contain other
+      components, they are subclasses of the <span class="code">JContainer</span> class. Since
+      <span class="code">JLabel</span> cannot, it is simply a subclass of the <span class="code">JComponent</span> class.
+      These three Swing components are the most commonly used of the three. <span class="code">JFrame</span> is used to
+      create windows/frames, <span class="code">JLabel</span> is used to create elements of text or images, and
+      <span class="code">JPanel</span> is used to catagorize and separate components from each other, not unlike the
+      <span class="code">&lt;div&gt;</span> HTML element.
+    </p>
+    <!-- Add H4s for JFrame, JLabel, and JPanels, as well as demonstrations -->
+    <figure>
+      <img src="images/swing/#" alt="A usage of a JFrame, a few JLabels, and a few JPanels." />
+      <figcaption>Figure #4: Here are all of the mentioned elements in use.</figcaption>
+    </figure>
+    <h3>More Swing Elements</h3>
+    <!-- Put an image here -->
+    <p class="brief">
+      The <span class="code">JButton</span>, <span class="code">JScrollPane</span>, <span class="code">JLayeredPane</span>,
+      and <span class="code">JToolBar</span> classes are more Swing components that are less commonly used, but still used
+      regardless. In visual interfaces, these are used very often. Swing interfaces can easily be compared to HTML. For
+      example, a <span class="code">JButton</span> can be compared to the <span class="code">&lt;button&gt;</span> tag in
+      HTML. <span class="code">JLabel</span> with <span class="code">&lt;label&gt;</span>. <span class="code">JTextField</span>
+      with <span class="code">&lt;textfield&gt;</span>, and many more. In fact, Swing components, specifically
+      <span class="code">JLabel</span>, can support HTML text. If you were to type something like
+      <span class="code">new JLabel("&lt;html&gt;&lt;b&gt;&lt;u&gt;Important text&lt;/u&gt;&lt;/b&gt;&lt;/html&gt;");</span>,
+      you would get <b><u>Important text</u></b> as a result. Regardless, Swing and HTML have some similarities, so you could
+      find some Swing components similar to HTML tags.
+    </p>
+    <h3>Read More</h3>
+    <!-- Find some links -->
+    <table></table>
+    <h3>Test Question</h3>
+    <p>What is the difference between a <span class="code">JComponent</span> and a <span class="code">JContainer</span>?</p>
+    <input type="radio" id="tq-none" name="test-question" value="none" />
+    <label for="tq-none">None.</label><br />
+    <input type="radio" id="tq-jcon" name="test-question" value="jcon-no-purpose" />
+    <label for="tq-jcon">The <span class="code">JComponent</span> has its respective functionality depending on its subclass, and the <span class="code">JContainer</span> can contain elements, but lacks a general purpose.</label><br />
+    <input type="radio" id="tq-jcon-purpose" name="test-question" value="jcon-purpose" />
+    <label for="tq-jcon-purpose">The <span class="code">JComponent</span> has its respective functionality depending on its subclass, and the <span class="code">JContainer</span> can contain elements, along with a general purpose.</label><br />
+    <button onclick="checkAnswer();">Check Answer</button><br />
+    <label id="test-question-result"></label>
   </main>
   <footer>
     <hr />

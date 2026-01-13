@@ -1,40 +1,71 @@
 /*
   All-around stylesheet
-  Last edited: 01/12/2026
-  Last commit: index.html progress - A2
+  Last edited: 01/13/2026
+  Last commit: swing.html progress
 */
+/* The body has Arial-esc text */
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+/* Headings are centered */
 h1, h2, h3, h4, h5, h6 {
   text-align: center;
 }
+/* The navigation list is arranged vertically with no left indent */
 nav ul {
   display: flex;
   flex-direction: column;
   padding-left: 0px;
 }
+/* The navigation list items are centered and spaced out */
 nav ul li {
   display: flex;
   justify-content: center;
   padding-top: 5px;
   padding-bottom: 5px;
 }
+/* Figures will be centered */
+figure {
+  text-align: center;
+}
+/* Figure captions are italicised and slightly translucent */
+figcaption {
+  font-style: italic;
+  opacity: 0.75;
+}
+/* 
+  Elements (typically spans) marked as "code" will be given a 
+  static-width fontface, a background colour of light gray, 
+  and a slight border curve
+*/
 .code {
-  font-family:'Courier New', Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
   background-color: lightgray;
   border-radius: 5px;
 }
+/*
+  Elements (typically anchors) marked as "learn-more" will
+  be centered, italicised, and given a blue text colour
+*/
 .learn-more {
   display: block;
   text-align: center;
   font-style: italic;
   color: blue;
 }
+/* "Learn-more" elements will become red when clicked */
 .learn-more:active {
   color: red;
 }
+/* 
+  Elements (typically paragraphs) marked as "brief" will
+  will be given horizontal spacing
+*/
 .brief {
   margin-left: 5vw;
   margin-right: 5vw;
+}
+.multi-image {
+  display: flex;
+  justify-content: space-around;
 }
