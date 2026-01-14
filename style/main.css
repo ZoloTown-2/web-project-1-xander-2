@@ -69,3 +69,6 @@ figcaption {
   display: flex;
   justify-content: space-around;
 }
+.notice {
+  /* Make it highlighted please */
+}

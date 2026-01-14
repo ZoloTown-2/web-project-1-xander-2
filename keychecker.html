@@ -1,7 +1,7 @@
 <!--
   KeyChecker page
-  Last edited: 01/08/2026
-  Last commit: keychecker.html progress
+  Last edited: 01/14/2026
+  Last commit: keychecker.html progress - A1
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +9,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KeyChecker &#x2014; Program Development in Java</title>
+  <link rel="stylesheet" href="style/main.css" />
 </head>
 <body>
   <header>
@@ -18,12 +19,8 @@
         <li><a href="swing.html">Java's Swing Library</a></li>
         <li><a href="keychecker.html"><i>KeyChecker (key input system)</i></a></li>
         <li><a href="hitboxes.html">Hitboxes</a></li>
-        <li><a href="acceleration.html">Acceleration</a></li>
         <li><a href="rjlabels.html">Rotating Labels (by overriding graphic drawing methods)</a></li>
         <li><a href="directional-movement.html">Directional Movement</a></li>
-        <li><a href="procedural-graphics.html">Procedural Graphics (with AWT and custom methods)</a></li>
-        <li><a href="networking.html">Basic Network Communication</a></li>
-        <li><a href="launcher.html">Launcher</a></li>
       </ul>
     </nav>
     <h1>Program Development in Java</h1>
@@ -37,7 +34,29 @@
         - KeyListener, KeyAdapter, KeyEvent
         - Usage
     -->
-    <p>Initial commit</p>
+    <h3>Summary</h3>
+    <p>
+      <span class="code">KeyChecker</span> is meant to provide the programmer the ability to detect the user's
+      keyboard inputs. <span class="code">KeyChecker</span> must be applied to a <span class="code">Container</span>
+      to detect key inputs. The programmer can then check if a particular key is being pressed by the user to
+      follow through with a block of code. The <span class="code">pressing(int)</span> method returns a boolean value
+      to check if a key is being pressed. The <span class="code">int</span> argument put in this method is the
+      returned value of <span class="code">KeyEvent</span>'s VK (Virtual Keyboard) static variables. The
+      <span class="code">KeyChecker</span>'s key cache can also be cleared with its <span class="code">clear()</span>
+      method in the case that the parenting <span class="code">Container</span> stops listening for key inputs.
+    </p>
+    <!-- KeyAdapter-KeyChecker Structure here -->
+    <h3>KeyAdapter, KeyChecker's Superclass</h3>
+    <p class="brief">
+      <span class="code">java.awt.KeyAdapter</span> is the superclass of <span class="code">KeyChecker</span>.
+      <span class="code">KeyAdapter</span>, or any AWT "adapter" at all, would implement its respective interface
+      that is labelled as a "listener." For example, <span class="code">MouseAdapter</span> would implement
+      <span class="code">MouseListener</span>. <span class="code">KeyAdapter</span> is an abstract class with
+      various implemented abstract methods from <span class="code">KeyListener</span>. In fact,
+      <span class="code">KeyAdapter</span> would be the class representation of <span class="code">KeyListener</span>.
+      As is the case for any other "listener," <span class="code">KeyListener</span> extends
+      <span class="code">java.util.EventListener</span> at some point.
+    </p>
     <!-- Read More, Test Question -->
   </main>
   <footer>
