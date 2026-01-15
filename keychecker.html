@@ -1,7 +1,7 @@
 <!--
   KeyChecker page
-  Last edited: 01/14/2026
-  Last commit: keychecker.html progress - A1
+  Last edited: 01/15/2026
+  Last commit: keychecker.html progress - A2
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +56,151 @@
       <span class="code">KeyAdapter</span> would be the class representation of <span class="code">KeyListener</span>.
       As is the case for any other "listener," <span class="code">KeyListener</span> extends
       <span class="code">java.util.EventListener</span> at some point.
+    </p>
+    <h3>Usage</h3>
+    <p class="brief">
+      <span class="code">KeyChecker</span> is a non-static class. That being said, you will need to create an object of
+      it to use it.
+    </p>
+    <!-- 
+      You can assign multiple classes to a single element by separating class names with spaces.
+      In this example, the paragraph below is both brief and a code snippet.
+    -->
+    <p class="brief code">KeyChecker kc = new KeyChecker();</p>
+    <p class="brief">
+      Make sure you are assigning this object to a variable instead of weakly creating it. Once you have done this,
+      apply this to a <span class="code">Container</span> of your choice, typically a <span class="code">JFrame</span>,
+      with the <span class="code">addKeyListener()</span> method.
+    </p>
+    <!--
+      In this code snippet, I separate lines with the <br> tag. I would really appreciate it if I didn't need to do this.
+    -->
+    <p class="brief code">
+      JFrame frame = new JFrame("Project");<br />
+      KeyChecker kc = new KeyChecker();<br />
+      frame.setBounds(250, 250, 500, 500);<br />
+      frame.setVisible(true);<br />
+      frame.addKeyListener(kc); // No inline overriding needed
+    </p>
+    <p class="brief">
+      Here, we create a <span class="code">JFrame</span> and assign the <span class="code">KeyChecker</span> to it.
+      Now, whenever we press a button with the frame highlighted, inputs will be received by the <span class="code">JFrame</span> 
+      and sent to the <span class="code">KeyChecker</span>. To minimalize input receiving oversights, I will add other
+      "adapters" to the frame to listen to it for anything that may prevent key inputs from passing through.
+    </p>
+    <p class="brief code">
+      JFrame frame = new JFrame("Project");<br />
+      KeyChecker kc = new KeyChecker();<br />
+      // JFrame init...<br />
+      frame.addComponentListener(new ComponentAdapter() {<br />
+      <!--
+        If you know a better way to format code without using an unholy amount of &nbsp; entities, please tell me.
+        I do not enjoy typing all of this.
+      -->
+      &nbsp;&nbsp;/*<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;KeyChecker's cache will be cleared if the JFrame is moved or resized.<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;If this is not done, then key presses will not be detected, but neither<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;will key releases. This will cause the project to think that a key is<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;continuously being pressed even when it is not.<br />
+      &nbsp;&nbsp;*/<br />
+      &nbsp;&nbsp;@Override<br />
+      &nbsp;&nbsp;public void componentMoved(ComponentEvent e) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;kc.clear();<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;@Override<br />
+      &nbsp;&nbsp;pulic void componentResized(ComponentEvent e) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;kc.clear();<br />
+      &nbsp;&nbsp;}<br />
+      });<br />
+      frame.addWindowFocusListener(new WindowAdapter() {<br />
+      &nbsp;&nbsp;@Override<br />
+      &nbsp;&nbsp;public void windowLostFocus(WindowEvent e) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;kc.clear();<br />
+      &nbsp;&nbsp;}<br />
+      });<br />
+      frame.addKeyListener(kc);
+    </p>
+    <p class="brief">
+      Now that the frame has its measures in place, we can use the <span class="code">KeyChecker</span> as we
+      please. Here is the typical usage for it.
+    </p>
+    <p class="brief code">
+      JFrame frame = new JFrame("Project");<br />
+      KeyChecker kc = new KeyChecker();<br />
+      // ...<br />
+      while (true) {<br />
+      &nbsp;&nbsp;if (kc.pressing(KeyEvent.VK_LEFT))<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Going left");<br />
+      &nbsp;&nbsp;if (kc.pressing(KeyEvent.VK_RIGHT))<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;System.out.println("Going right");<br />
+      &nbsp;&nbsp;sleep(1);<br />
+      }
+    </p>
+    <p class="brief">
+      This snippet would check for if the user is pressing the left arrow key or the right arrow key every
+      millisecond. If one or both are pressed, the project would output the corrisponding direction.
+      Also, sleeping (temporarily halting the main thread) is done by using
+      <span class="code">try {TimeUnit.MILLISECONDS.sleep(ms)} catch (InterruptedException e) {}</span>.
+      No, don't use <span class="code">Thread.sleep(ms)</span>; it's much less reliable.
+      Anyways, here is another use of <span class="code">KeyChecker</span>.
+    </p>
+    <p class="brief code">
+      // ...<br />
+      JLabel label = new JLabel("Press ENTER to continue...");<br />
+      frame.add(label, BorderLayout.SOUTH);<br />
+      while (!kc.pressing(KeyEvent.VK_ENTER)) {}<br />
+      frame.remove(label);<br />
+      // ...
+    </p>
+    <p class="brief">
+      This program waits for the user to press the Enter key. The thread traps itself in a <span class="code">while</span>
+      loop until the <span class="code">KeyChecker</span> says that the user is indeed pressing the Enter key. Similarily,
+      you can do this too:
+    </p>
+    <p class="brief code">
+      // ...<br />
+      while (kc.getPressedKeys().size() == 0) {}<br />
+      frame.remove(label);<br />
+      // ...<br />
+    </p>
+    <p class="brief">
+      This snippet shows how to detect <u>any</u> key input from the user. The <span class="code">getPressedKeys()</span>
+      method returns a copy of the <span class="code">ArrayList</span> the <span class="code">KeyChecker</span> uses to
+      store its pressed keys. One more example, to check that keys have been pressed in a particular order:
+    </p>
+    <p class="brief code">
+      // ...<br />
+      int[] order = {<br />
+      &nbsp;&nbsp;KeyEvent.VK_ONE,<br />
+      &nbsp;&nbsp;KeyEvent.VK_TWO,<br />
+      &nbsp;&nbsp;KeyEvent.VK_THREE<br />
+      };<br />
+      if (kc.getPressedKeys() == order)<br />
+      &nbsp;&nbsp;System.out.println("You pressed 1, 2, then 3 without releasing anything");<br />
+      if (kc.pressing(order))<br />
+      &nbsp;&nbsp;System.out.println("You are pressing 1, 2, and 3");<br />
+      // ...
+    </p>
+    <p class="brief">
+      This snippet shows both how to detect keys being pressed (without being released) in a specific order, or simply how to
+      detect multiple key presses at once. The <span class="code">pressed()</span> method also takes arrays. The method will
+      instead return <span class="code">true</span> if <i>all</i> of the keys in the array are pressed.
+    </p>
+    <h3>Contents</h3>
+    <p class="brief">
+      Here are the contents of the <span class="code">KeyChecker</span> class. It has no constructors, four custom methods,
+      and two overridden methods.
+    </p>
+    <p class="brief code">
+      import java.awt.event.KeyAdapter;<br />
+      import java.awt.event.KeyEvent;<br />
+      import java.util.ArrayList;<br />
+      public class KeyChecker extends KeyAdapter {<br />
+      &nbsp;&nbsp;private ArrayList&lt;Integer&gt; keys = new ArrayList&lt;Integer&gt;();<br />
+      &nbsp;&nbsp;public boolean pressed(int k) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<!-- Continue development here -->
+      &nbsp;&nbsp;}<br />
+      }
     </p>
     <!-- Read More, Test Question -->
   </main>

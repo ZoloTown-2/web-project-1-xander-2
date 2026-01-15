@@ -1,7 +1,11 @@
 <!--
   Main page
-  Last edited: 01/13/2026
-  Last commit: swing.html progress
+  Last edited: 01/15/2026
+  Last commit: keychecker.html progress - A2
+-->
+<!--
+  Bold, italic, underline, highlight, and superscript are indeed used in this page,
+  but very rarely.
 -->
 <!--
   Add a quick test question to every page but this one.
@@ -75,12 +79,6 @@
       </li>
       <li>
         <p>
-          In <i>Acceleration</i>, I show how acceleration can be performed visually, as well as the proper way to
-          make a project sleep (interrupt the thread for a set time).
-        </p>
-      </li>
-      <li>
-        <p>
           In <i>Rotating Labels</i> or <i>RJLabels</i>, I show how you can procedurally rotate a <span class="code">javax.swing.JLabel</span>
           (or really any AWT Component), and how to override methods, add in your own code, and call the previous
           method as a result.
@@ -94,25 +92,6 @@
           value with <span class="code">Math.atan2()</span>.
         </p>
       </li>
-      <li>
-        <p>
-          In <i>Procedural Graphics</i>, I show how to create shapes with the <span class="code">java.awt.Graphics</span>
-          class, as well as how to make convenience methods for quickly creating these shapes and applying them to
-          <span class="code">javax.swing.ImageIcon</span>.
-        </p>
-      </li>
-      <li>
-        <p>
-          In <i>Basic Network Communication</i>, I show some basics with networking in Java, using the <span class="code">java.net</span>
-          library, and its <span class="code">Socket</span> and <span class="code">ServerSocket</span> classes.
-        </p>
-      </li>
-      <li>
-        <p>
-          In <i>Launcher</i>, I show how my Java programs compile and run.
-        </p>
-      </li>
-    </ul>
     <p>
       These are the pieces of programming knowledge I will share in this webpage. They mostly relate to each other,
       except for the <i>Basic Network Communication</i> and <i>Launcher</i> pages. I personally believe that Java is 
@@ -153,15 +132,6 @@
     </p>
     <a class="learn-more" href="hitboxes.html">Click here to learn more about hitboxes and virtual collision.</a>
     <hr />
-    <h3>Acceleration</h3>
-    <!-- Put an image here -->
-    <p class="brief">
-      Here, I show how to recreate acceleration in a virtual environment. Every frame an entity moves a direction,
-      their respective acceleration value increases. Whether they are pressing a key or not, the acceleration values
-      will passively decrease, naturally making an acceleration cap.
-    </p>
-    <a class="learn-more" href="acceleration.html">Click here to learn more about acceleration replication.</a>
-    <hr />
     <h3>Rotating Labels (RJLabels)</h3>
     <!-- Put an image here -->
     <p class="brief">
@@ -185,36 +155,11 @@
     </p>
     <a class="learn-more" href="directional-movement.html">Click here to learn more about orientation-based movement.</a>
     <hr />
-    <h3>Procedural Graphics</h3>
-    <!-- Put an image here -->
-    <p class="brief">
-      In this section, I go into how we can create shapes from the <span class="code">Graphics2D</span> class, and then
-      how we can manage them further. I then demonstrate how we can create more convenient methods in a static
-      <span class="code">Shapes</span> class to ease access to these abilities. Within this class, I will also make
-      a method to combine shapes or images into one, effectively making a single final image.
+    <p>
+      I have more Java content I would like to talk about here, but I don't want to bother you or myself by adding too
+      much to the webpage. I can spread out my knowledge across multiple pages. Or, you know, keep it to myself like
+      a normal person.
     </p>
-    <a class="learn-more" href="procedural-graphics.html">Click here to learn more about procedurally creating images.</a>
-    <hr />
-    <h3>Basic Network Communication</h3>
-    <!-- Put an image here -->
-    <p class="brief">
-      In this section, I go over how to communicate with clients and servers within the same network. One program takes
-      a port number to load a server onto, and many others take the IP address and port number to connect to said server.
-      Once the clients are connected, they can give themselves names and chat with each other. This section will show how
-      this is done by demonstrating how data packets are sent and received through data networks, and how the client's
-      data is handled by the server.
-    </p>
-    <a class="learn-more" href="networking.html">Click here to learn more about basic networking in Java.</a>
-    <hr />
-    <h3>Launcher</h3>
-    <!-- Put an image here -->
-    <p class="brief">
-      This section shows the contents of my Java project conductor. It is a batch file that consists of a basic text-based
-      interface and many <span class="code">javac</span> commands (with several attributes), which is backed up with the
-      Java program's internal runtime error checker, which opens a <span class="code">JOptionPane</span> (or really, a
-      <span class="code">JDialog</span>) showing detailed information about the runtime error.
-    </p>
-    <a class="learn-more" href="launcher.html">Click here to learn more about how my Java programs run, compile, and handle errors.</a>
   </main>
   <footer>
     <hr />
