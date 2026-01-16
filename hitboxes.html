@@ -1,7 +1,7 @@
 <!--
   Hitboxes page
   Last edited: 01/16/2026
-  Last commit: Image raid
+  Last commit: Test questions
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +10,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hitboxes &#x2014; Program Development in Java</title>
   <link rel="stylesheet" href="style/main.css" />
+  <script>
+    function checkAnswer() {
+      let check1 = document.getElementById('test-question-x-axis');
+      let check2 = document.getElementById('test-question-y-axis');
+      let resultLabel = document.getElementById('test-question-result');
+      let result = '';
+      if (check1.checked) {
+        result = result.concat('X-Axis is incorrect. ');
+      } else {
+        result = result.concat('');
+      }
+      if (check2.checked) {
+        result = result.concat('Correct.');
+      } else {
+        result = result.concat('Y-Axis is correct.');
+      }
+      resultLabel.innerHTML = result;
+    }
+  </script>
 </head>
 <body>
   <header>
@@ -261,7 +280,42 @@
         while the other is not.
       </figcaption>
     </figure>
-    <!-- Test Question here -->
+    <h3>Test Question</h3>
+    <p>Imagine that you have two rectangular hitboxes. Here are their attributes:</p>
+    <table>
+      <tr>
+        <th>&bull;</th>
+        <th>Hitbox #1</th>
+        <th>Hitbox #2</th>
+      </tr>
+      <tr>
+        <th>X</th>
+        <td>20</td>
+        <td>60</td>
+      </tr>
+      <tr>
+        <th>Y</th>
+        <td>20</td>
+        <td>-5</td>
+      </tr>
+      <tr>
+        <th>Width</th>
+        <td>10</td>
+        <td>20</td>
+      </tr>
+      <tr>
+        <th>Height</th>
+        <td>10</td>
+        <td>40</td>
+      </tr>
+    </table>
+    <p>On which axises are the hitboxes aligning?</p>
+    <input type="checkbox" name="test-question-x-axis" value="x-axis" id="test-question-x-axis" />
+    <label for="test-question-x-axis">X-Axis</label><br />
+    <input type="checkbox" name="test-question-y-axis" value="y-axis" id="test-question-y-axis" />
+    <label for="test-question-y-axis">Y-Axis</label><br /><br />
+    <button onclick="checkAnswer();">Check Answer</button><br />
+    <label id="test-question-result"></label>
   </main>
   <footer>
     <hr />

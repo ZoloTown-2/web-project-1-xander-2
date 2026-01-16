@@ -10,6 +10,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rotating Labels &#x2014; Program Development in Java</title>
   <link rel="stylesheet" href="style/main.css" />
+  <style>
+    #test-question-pointer {
+      rotate: 180deg;
+    }
+    #test-question-guide {
+      left: -121px;
+      position: relative;
+      opacity: 0.5;
+    }
+    #test-question-pointer, #test-question-guide {
+      margin: 20px;
+    }
+  </style>
+  <script>
+    let pointer;
+    let guide;
+    let slider;
+    let resultLabel;
+    let goal = Math.floor(Math.random() * 360);
+    let val;
+    function update() {
+      val = Math.floor(slider.value / 100 * 360);
+      pointer.style.rotate = val + 'deg';
+      console.log(val);
+      console.log(goal);
+      if (val < goal + 5 && val > goal - 5) {
+        resultLabel.innerHTML = 'Be proud of yourself or something!';
+        slider.removeEventListener('mousemove', update);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      pointer = document.getElementById('test-question-pointer');
+      guide = document.getElementById('test-question-guide');
+      resultLabel = document.getElementById('test-question-result');
+      slider = document.getElementById('test-question-slider');
+      slider.addEventListener('mousemove', update);
+      guide.style.rotate = goal + 'deg';
+    });
+  </script>
 </head>
 <body>
   <header>
@@ -159,7 +198,12 @@
       and editing its graphics before it is actually processed by the original <span class="code">paintComponent(Graphics)</span> method. In the long run, we
       are rotating the image according to our rotation variable before sending it off to the superclass's method.
     </p>
-    <!-- Test Question -->
+    <h3>Test Question</h3>
+    <p>Move the slider to the correct position.</p>
+    <input type="range" id="test-question-slider" /><br />
+    <img src="images/point.png" id="test-question-pointer" />
+    <img src="images/point.png" id="test-question-guide" />
+    <label id="test-question-result"></label>
   </main>
   <footer>
     <hr />

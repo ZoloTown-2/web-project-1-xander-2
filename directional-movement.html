@@ -10,6 +10,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Directional Movement &#x2014; Program Development in Java</title>
   <link rel="stylesheet" href="style/main.css" />
+  <script>
+    function checkAnswer() {
+      let correctRadio = document.getElementById('test-question-int');
+      let resultLabel = document.getElementById('test-question-result');
+      if (correctRadio.checked) {
+        resultLabel.innerHTML = 'You are correct.';
+      } else {
+        resultLabel.innerHTML = 'Option #1 was the correct option.';
+      }
+    }
+  </script>
 </head>
 <body>
   <header>
@@ -115,12 +126,12 @@
       &nbsp;&nbsp;@Override<br />
       &nbsp;&nbsp;public void run() {<br />
       &nbsp;&nbsp;&nbsp;&nbsp;while (this.refreshing) {<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.refresh();<br /> // A whole lot of refreshing
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.refresh(); // A whole lot of refreshing<br /> 
       &nbsp;&nbsp;&nbsp;&nbsp;}<br />
       &nbsp;&nbsp;}<br />
       }
     </p>
-    <p>
+    <p class="brief">
       Phew, that's the <span class="code">Entity</span> class. The base abstract class. Let's get on with making an actual
       <span class="code">Projectile</span> class, as that would best suit this scenario.
     </p>
@@ -193,11 +204,52 @@
       little from the <span class="code">Sleeper.sleep(int)</span> method, halting it for 5 milliseconds each call.
     </p>
     <figure>
-      <img src="images/ketsui.png" width="300" alt="A screenshot of a manic shoot-em-up. Plentiful pink and blue orbs flying sparatically across the screen in various directions, the player ship barely poking out of the mess." />
-      <!-- Needs fig number! -->
-      <figcaption>A fun example of projectiles.</figcaption>
+      <img src="images/ketsui.png" width="300" alt=
+        "A screenshot of a manic shoot-em-up. Plentiful pink and blue orbs fly sparatically across the screen in various
+        directions, the player ship barely poking out of the mess."
+      />
+      <figcaption>Figure #2: A fun example of projectiles.</figcaption>
     </figure>
-    <!-- Test Question -->
+    <h3>Test Question</h3>
+    <p>How would we allow KeyChecker to steer the projectile?</p>
+    <input type="radio" name="test-question" value="int" id="test-question-int" />
+    <label for="test-question-int">Option #1</label><br />
+    <input type="radio" name="test-question" value="pro" id="test-question-pro" />
+    <label for="test-question-pro">Option #2</label><br />
+    <input type="radio" name="test-question" value="steer" id="test-question-steer" />
+    <label for="test-question-steer">Option #3</label><br />
+    <p>Option #1:</p>
+    <p class="test-question code">
+      KeyChecker kc = new KeyChecker();<br />
+      Projectile pro = new Projectile(...);<br />
+      int rotation = 0;<br />
+      while (true) {<br />
+        if (kc.pressing(KeyEvent.VK_LEFT)) {rotation--;}<br />
+        if (kc.pressing(KeyEvent.VK_RIGHT)) {rotation++;}<br />
+        rotation %= 360;<br />
+        pro.rotateTo(rotation);<br />
+        Sleeper.sleep(1);
+      }
+    </p>
+    <p>Option #2:</p>
+    <p class="test-question code">
+      KeyChecker kc = new KeyChecker();<br />
+      Projectile pro = new Projectile(...);<br />
+      while (true) {<br />
+        if (kc.pressing(KeyEvent.VK_LEFT)) {pro.rotation--;}<br />
+        if (kc.pressing(KeyEvent.VK_RIGHT)) {pro.rotation++;}<br />
+        pro.rotation %= 360;<br />
+        Sleeper.sleep(1);
+      }
+    </p>
+    <p>Option #3:</p>
+    <p class="test-question code">
+      KeyChecker kc = new KeyChecker();<br />
+      Projectile pro = new Projectile(...);<br />
+      KeyChecker.steer(pro);
+    </p><br />
+    <button onclick="checkAnswer();">Check Answer</button>
+    <label id="test-question-result"></label>
   </main>
   <footer>
     <hr />
