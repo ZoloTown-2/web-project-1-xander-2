@@ -1,7 +1,7 @@
 <!--
   Hitboxes page
-  Last edited: 01/08/2026
-  Last commit: keychecker.html progress - A1
+  Last edited: 01/15/2026
+  Last commit: hitboxes.html progress
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +28,201 @@
     <hr />
   </header>
   <main>
-    <p>Initial commit</p>
+    <!--
+      Talk about:
+        - The hitbox class
+        - How it works
+        - Visual examples
+    -->
+    <h3>Summary</h3>
+    <p>
+      This page shows how hitboxes and collision work, as well as how you can apply it in your
+      Java program. Hitboxes are used in the majority of video games today, as a centeral method of
+      detecting collision between one object and another. Knowing how to detect this collision is
+      crucial if you are aiming to make a video game that heavily depends on them. Here, I will
+      demonstrate the math required to detect such things, which isn't too difficult to understand
+      at all.
+    </p>
+    <h3>How Hitboxes Work</h3>
+    <p class="brief">
+      For my hitboxes, they simply store position and size data. The actual complications come from
+      detecting collision between two of these hitboxes, or data collections. Collision is detected
+      through calculations referencing this data. Here is the specific list of instructions for finding
+      a collision.
+    </p>
+    <ol>
+      <li>Assign the average of the sizes to a couple variables (one for width, the other for height)</li>
+      <li>Compare the X-axis positions</li>
+      <li>Check if the result/distance is less than their average widths</li>
+      <li>Compare the Y-axis positions</li>
+      <li>Check if the result/distance is less than their average heights</li>
+      <li>If they are both less than their respective average sizes, the hitboxes are touching.</li>
+    </ol>
+    <p class="brief">
+      So, let's create a collision detection method in Java. First, let's get the average widths and
+      heights of these hitboxes.
+    </p>
+    <p class="brief code">
+      public static boolean touching(Hitbox h1, Hitbox h2) {<br />
+      &nbsp;&nbsp;int width = (h1.width + h2.width) / 2; <br />
+      &nbsp;&nbsp;int height = (h1.height + h2.height) / 2;<br />
+      &nbsp;&nbsp;// Assuming these are applicable fields<br />
+      }
+    </p>
+    <!-- Demonstrating image here -->
+    <p class="brief">Now, let's compare the distances.</p>
+    <p class="brief code">
+      public static boolean touching(Hitbox h1, Hitbox h2) {<br />
+      &nbsp;&nbsp;int width = (h1.width + h2.width) / 2;<br />
+      &nbsp;&nbsp;int height = (h1.height + h2.height) / 2;<br />
+      &nbsp;&nbsp;int x = Math.abs(h1.x - h2.x);<br />
+      &nbsp;&nbsp;int y = Math.abs(h1.y - h2.y);<br />
+      }
+    </p>
+    <!-- Demonstrating image here -->
+    <p class="brief">
+      With that done, let's actually do something with those X and Y variables. We will compare them
+      to the average sizes. If the position difference is higher than the average size, they are not
+      touching. If the position difference is lower, however, that means they are. If the position
+      difference is zero, then they are directly overlapping.
+    </p>
+    <p class="brief code">
+      public static boolean touching(Hitbox h1, Hitbox h2) {<br />
+      &nbsp;&nbsp;int width = (h1.width + h2.width) / 2;<br />
+      &nbsp;&nbsp;int height = (h1.height + h2.height) / 2;<br />
+      &nbsp;&nbsp;int x = Math.abs(h1.x - h2.x);<br />
+      &nbsp;&nbsp;int y = Math.abs(h1.y - h2.y);<br />
+      &nbsp;&nbsp;return x <= width && y <= height;<br />
+      }
+    </p>
+    <!-- Demonstrating image here -->
+    <p class="brief">
+      That is quite basic, actually. When I had first discovered this, I felt like Oppenhimer. That was
+      mostly because the code had looked like this:
+    </p>
+    <!-- Awful lot of effort to grab attention. -->
+    <p class="brief"><mark><b><i><u>If you are skim reading this, the following is not official code!</u></i></b></mark></p>
+    <p class="brief code">
+      static boolean touching(Hitbox a, Hitbox b) {<br />
+      &nbsp;&nbsp;int height = (int) (a.height + b.height) / 2;<br />
+      &nbsp;&nbsp;int width = (int) (a.width + b.width) / 2;<br />
+      &nbsp;&nbsp;Dimension size = new Dimension(width, height);<br />
+      &nbsp;&nbsp;int ax = a.x;<br />
+      &nbsp;&nbsp;int ay = a.y;<br />
+      &nbsp;&nbsp;int bx = b.x;<br />
+      &nbsp;&nbsp;int by = b.y;<br />
+      &nbsp;&nbsp;int result = bx - ax;<br />
+      &nbsp;&nbsp;if (result < 0) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;result = ax - bx;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;if (result < size.getWidth()) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result = by - ay;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (result < 0) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result = ay - by;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (result < size.getHeight()) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else if (result < size.getHeight()) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;} else {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<br />
+      &nbsp;&nbsp;} else if (result < size.getWidth()) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;result = by - ay;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;if (result < 0) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result = ay - by;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (result < size.getHeight()) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;} else if (result < size.getHeight()) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;} else {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;} else {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;return false;<br />
+      &nbsp;&nbsp;}<br />
+      }
+    </p>
+    <p class="brief">
+      Looking at it now makes me gag, but I feel like it was an accomplishment at the time.
+      The result <i>is</i> in fact the same, but the JVM definitely has more code to process
+      when running this script. I am very glad I improved this over time. It started with the
+      <span class="code">if (something) {return true;} else {return false;}</span> turning into
+      <span class="code">return something;</span>, but it did genuinely become a very easy script
+      after simplifying it enough times.
+    </p>
+    <h3>The Hitbox Class</h3>
+    <p class="brief">
+      Here are the contents of the Hitbox class. It contains five constructors, a non-static method,
+      and a static method.
+    </p>
+    <p class="brief code">
+      public class Hitbox {<br />
+      &nbsp;&nbsp;public int x = 0;<br />
+      &nbsp;&nbsp;public int y = 0;<br />
+      &nbsp;&nbsp;public int width = 0;<br />
+      &nbsp;&nbsp;public int height = 0;<br />
+      &nbsp;&nbsp;public Hitbox() {}<br />
+      &nbsp;&nbsp;public Hitbox(int width, int height) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.width = width;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.height = height;<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public Hitbox(Dimension size) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.width = size.getWidth();<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.height = size.getHeight();<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public Hitbox(int x, int y, int width, int height) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.x = x;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.y = y;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.width = width;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.height = height;<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public Hitbox(int x, int y, Dimension size) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.x = x;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.y = y;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.width = size.getWidth();<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.height = size.getHeight();<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public boolean touching(Hitbox h) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// Like before, but comparing this to a singlular hitbox<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;int width = (this.width + h.width) / 2;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;int height = (this.height + h.height) / 2;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;int x = Math.abs(this.x - h.x);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;int y = Math.abs(this.y - h.y);<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public static boolean touching(Hitbox h1, Hitbox h2) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// As we saw earlier<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;int width = (h1.width + h2.width) / 2;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;int height = (h1.height + h2.height) / 2;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;int x = Math.abs(h1.x - h2.x);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;int y = Math.abs(h1.y - h2.y);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;return x <= width && y <= height;<br />
+      &nbsp;&nbsp;}<br />
+      }
+    </p>
+    <p class="brief">
+      The majority of the code is simply assigning values to variables, but in the collision
+      methods, we can see what we were seeing earlier finally in a place of its own. Usage of the
+      <span class="code">Hitbox</span> class would then look something like this:
+    </p>
+    <!-- Demonstrating image here -->
+    <p class="brief code">
+      Hitbox h1 = new Hitbox(-50, 0, 25, 25);<br />
+      Hitbox h2 = new Hitbox(50, 0, 40, 40);<br />
+      System.out.println(Hitbox.touching(h1, h2)); // false<br />
+      h1.x = 30;<br />
+      h1.y = 30;<br />
+      System.out.println(h1.touching(h2)); // true
+    </p>
+    <!-- Test Question here -->
   </main>
   <footer>
     <hr />
