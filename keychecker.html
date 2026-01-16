@@ -1,7 +1,7 @@
 <!--
   KeyChecker page
   Last edited: 01/15/2026
-  Last commit: keychecker.html progress - A2
+  Last commit: keychecker.html progress - A3
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -10,6 +10,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KeyChecker &#x2014; Program Development in Java</title>
   <link rel="stylesheet" href="style/main.css" />
+  <script>
+    function checkAnswers() {
+      let code1 = document.getElementById('test-question-code-1');
+      let code2 = document.getElementById('test-question-code-2');
+      let correctRadio = document.getElementById('test-question-check');
+      let resultLabel = document.getElementById('test-question-result');
+      let result = '';
+      if (code1.value == 'KeyChecker kc = new KeyChecker();') {
+        result = result.concat('Code #1 is correct; ');
+      } else {
+        result = result.concat('Code #1 is incorrect; ');
+      }
+      if (code2.value == 'frame.addKeyListener(kc);') {
+        result = result.concat('Code #2 is correct; ');
+      } else {
+        result = result.concat('Code #2 is incorrect; ');
+      }
+      if (correctRadio.checked) {
+        result = result.concat('and Radio is correct.');
+      } else {
+        result = result.concat('and Option #2 would be the correct answer.');
+      }
+      resultLabel.innerHTML = result;
+    }
+  </script>
 </head>
 <body>
   <header>
@@ -57,7 +82,6 @@
       As is the case for any other "listener," <span class="code">KeyListener</span> extends
       <span class="code">java.util.EventListener</span> at some point.
     </p>
-<<<<<<< HEAD
     <h3>Usage</h3>
     <p class="brief">
       <span class="code">KeyChecker</span> is a non-static class. That being said, you will need to create an object of
@@ -193,23 +217,81 @@
       and two overridden methods.
     </p>
     <p class="brief code">
+      package project.base;<br />
       import java.awt.event.KeyAdapter;<br />
       import java.awt.event.KeyEvent;<br />
       import java.util.ArrayList;<br />
       public class KeyChecker extends KeyAdapter {<br />
       &nbsp;&nbsp;private ArrayList&lt;Integer&gt; keys = new ArrayList&lt;Integer&gt;();<br />
       &nbsp;&nbsp;public boolean pressed(int k) {<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;<!-- Continue development here -->
+      &nbsp;&nbsp;&nbsp;&nbsp;return keys.contains(k);<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public boolean pressed(int[] k) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;for (int i = 0; i < k.length; i++) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (!keys.contains(k[i])) {return false;}<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;return true;<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public ArrayList&lt;Integer&gt; getPressedKeys() {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;return keys.clone();<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public void clear() {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.keys = new ArrayList&lt;Integer&gt;();<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;@Override<br />
+      &nbsp;&nbsp;public void keyPressed(KeyEvent e) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;if (!keys.contains(e.getKeyCode())) {keys.add(e.getKeyCode());}<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;@Override<br />
+      &nbsp;&nbsp;public void keyReleased(KeyEvent e) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;try {keys.remove(e.getKeyCode());} catch (IndexOutOfBoundsException ex) {}<br />
       &nbsp;&nbsp;}<br />
       }
-=======
-    <!-- Continue this paragraph above -->
-    <h3>Usage</h3>
-    <p class="brief">
-      <!-- Talk about the usage of KeyChecker -->
->>>>>>> 1b218757b2e6fa6a84284da9f7821f423acbee26
     </p>
-    <!-- Read More, Test Question -->
+    <h3>Test Question</h3>
+    <p>Complete the object initiation.</p>
+    <p class="test-question code">
+      JFrame frame = new JFrame("Project");
+    </p>
+    <textarea class="test-question code" id="test-question-code-1" spellcheck="false">// Initialize KeyChecker called 'kc'</textarea>
+    <p class="test-question code">
+      frame.setBounds(250, 250, 500, 500);<br />
+      frame.setVisible(true);
+    </p>
+    <textarea class="test-question code" id="test-question-code-2" spellcheck="false">// Apply kc to frame</textarea>
+    <p class="test-question code">
+      frame.addComponentListener(...);<br />
+      frame.addWindowFocusListener(...);
+    </p>
+    <p>Then, how would you detect the Caps Lock state?</p>
+    <input type="radio" name="test-question" value="constant-loop" id="test-question-constant" />
+    <label for="test-question-constant">Option #1</label><br />
+    <input type="radio" name="test-question" value="check" id="test-question-check" />
+    <label for="test-question-check">Option #2</label><br />
+    <input type="radio" name="test-question" value="listen-for" id="test-question-listen" />
+    <label for="test-question-listen">Option #3</label><br /><br />
+    <label>Option #1:</label>
+    <p class="test-question code">
+      while (true) {<br />
+      &nbsp;&nbsp;while (kc.pressing(VK_CAPSLOCK)) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;capState = !capState;<br />
+      &nbsp;&nbsp;}<br />
+      }
+    </p>
+    <label>Option #2:</label>
+    <p class="test-question code">
+      boolean capState = false;<br />
+      while (true) {<br />
+      &nbsp;&nbsp;while (!kc.pressing(KeyEvent.VK_CAPS_LOCK)) {}<br />
+      &nbsp;&nbsp;capState = !capState;<br />
+      }
+    </p>
+    <label>Option #3:</label>
+    <p class="test-question code">
+      kc.listenFor(KeyEvent.VK_CAPS_LOCK);
+    </p>
+    <button onclick="checkAnswers();">Check Answers</button><br />
+    <label id="test-question-result"></label>
   </main>
   <footer>
     <hr />

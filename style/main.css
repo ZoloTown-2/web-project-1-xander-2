@@ -1,7 +1,7 @@
 /*
   All-around stylesheet
   Last edited: 01/13/2026
-  Last commit: swing.html progress
+  Last commit: keychecker.html progress - A3
 */
 /* The body has Arial-esc text */
 body {
@@ -35,13 +35,32 @@ figcaption {
 }
 /* 
   Elements (typically spans) marked as "code" will be given a 
-  static-width fontface, a background colour of light gray, 
-  and a slight border curve
+  static-width fontface, a typical font size, a light-gray
+  background colour, a slight perimeter curve, and a nullification
+  of any border.
 */
 .code {
   font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
   background-color: lightgray;
   border-radius: 5px;
+  border: 0px;
+}
+/* Any fill-in-the-blank test question will be given a set width */
+.test-question {
+  display: block;
+  width: 500px;
+  margin: 0;
+  border-radius: 0px;
+}
+/* Fix the width on textareas using "test-question" */
+textarea.test-question {
+  width: 493px;
+  height: 18px;
+  resize: none;
+  background-color: rgb(245, 245, 245);
+  border-left: 2px solid lightgray;
+  border-right: 2px solid lightgray;
 }
 /*
   Elements (typically anchors) marked as "learn-more" will
