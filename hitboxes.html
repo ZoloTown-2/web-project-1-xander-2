@@ -1,7 +1,7 @@
 <!--
   Hitboxes page
-  Last edited: 01/15/2026
-  Last commit: hitboxes.html progress
+  Last edited: 01/16/2026
+  Last commit: Image raid
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -28,12 +28,6 @@
     <hr />
   </header>
   <main>
-    <!--
-      Talk about:
-        - The hitbox class
-        - How it works
-        - Visual examples
-    -->
     <h3>Summary</h3>
     <p>
       This page shows how hitboxes and collision work, as well as how you can apply it in your
@@ -44,6 +38,10 @@
       at all.
     </p>
     <h3>How Hitboxes Work</h3>
+    <figure>
+      <img src="images/hitbox-1.png" alt="A small red square beside a large blue square, both representing hitboxes." width="500" />
+      <figcaption>Figure #1: The two hitboxes in the proceeding examples.</figcaption>
+    </figure>
     <p class="brief">
       For my hitboxes, they simply store position and size data. The actual complications come from
       detecting collision between two of these hitboxes, or data collections. Collision is detected
@@ -69,7 +67,15 @@
       &nbsp;&nbsp;// Assuming these are applicable fields<br />
       }
     </p>
-    <!-- Demonstrating image here -->
+    <figure>
+      <img src="images/hitbox-2.png" alt=
+        "A small red square and a large blue square. Information is shown above the two squares; the
+        red has a width of 25 and a height of 25, while the blue has a width of 40 and a height of 40.
+        Calculations are found aside, showing 25 + 40 divided by 2 is equal to w, which eventually results
+        in the number 32.5." width="500"
+      />
+      <figcaption>Figure #2: Comparing the widths.</figcaption>
+    </figure>
     <p class="brief">Now, let's compare the distances.</p>
     <p class="brief code">
       public static boolean touching(Hitbox h1, Hitbox h2) {<br />
@@ -79,7 +85,14 @@
       &nbsp;&nbsp;int y = Math.abs(h1.y - h2.y);<br />
       }
     </p>
-    <!-- Demonstrating image here -->
+    <figure>
+      <img src="images/hitbox-3.png" alt="A small red square and a large blue square. The red square has an
+        X position of -50, while the blue square has an X position of +50. Both squares have a Y position of 0.
+        Calculations can be found aside, showing that the absolute value of -50 - 50 = x. Eventually, x is found
+        to be 100, and y is found to be 0." width="500"
+      />
+      <figcaption>Figure #3: Comparing the positions.</figcaption>
+    </figure>
     <p class="brief">
       With that done, let's actually do something with those X and Y variables. We will compare them
       to the average sizes. If the position difference is higher than the average size, they are not
@@ -95,7 +108,18 @@
       &nbsp;&nbsp;return x <= width && y <= height;<br />
       }
     </p>
-    <!-- Demonstrating image here -->
+    <figure>
+      <img src="images/hitbox-4.png" alt=
+        "A red square and a blue square. Calculations can be found aside, checking if x is less than or equal to w.
+        It is not." width="500"
+      />
+      <img src="images/hitbox-5.png" alt=
+        "A red square and a blue square. Calculations can be found aside, checking if y is less than or equal to h.
+        It is indeed less than h." width="500"
+      />
+      <figcaption>Figures #4 & #5: Finding the difference between the merged positions and the merged sizes.</figcaption>
+    </figure>
+    
     <p class="brief">
       That is quite basic, actually. When I had first discovered this, I felt like Oppenhimer. That was
       mostly because the code had looked like this:
@@ -215,7 +239,6 @@
       methods, we can see what we were seeing earlier finally in a place of its own. Usage of the
       <span class="code">Hitbox</span> class would then look something like this:
     </p>
-    <!-- Demonstrating image here -->
     <p class="brief code">
       Hitbox h1 = new Hitbox(-50, 0, 25, 25);<br />
       Hitbox h2 = new Hitbox(50, 0, 40, 40);<br />
@@ -224,6 +247,20 @@
       h1.y = 30;<br />
       System.out.println(h1.touching(h2)); // true
     </p>
+    <figure>
+      <img src="images/hitbox-6.png" alt=
+        "A red square and a blue square. The two squares are distanced from each other, indicating
+        that they are not colliding." width="500"
+      />
+      <img src="images/hitbox-7.png" alt=
+        "A red square and a blue square. The red square is overlapping inside the blue square, indicating
+        that they are in fact colliding." width="500"
+      />
+      <figcaption>
+        Figures #6 & #7: Visual representation of the code snippet above. One example is touching,
+        while the other is not.
+      </figcaption>
+    </figure>
     <!-- Test Question here -->
   </main>
   <footer>

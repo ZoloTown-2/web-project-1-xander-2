@@ -1,7 +1,7 @@
 <!--
   Main page
-  Last edited: 01/15/2026
-  Last commit: keychecker.html progress - A3
+  Last edited: 01/16/2026
+  Last commit: Image raid
 -->
 <!--
   Bold, italic, underline, highlight, and superscript are indeed used in this page,
@@ -9,10 +9,10 @@
 -->
 <!--
   Add a quick test question to every page but this one.
-  Add Read/Watch More content at the end of every page, including this page.
+  Put the Read/Watch More section below.
   Don't forget to add a test question page with all of the test questions.
   
-  Always refer to the briefing: https://pembinatrails.edsby.com/core/nodedl/387120592
+  Always refer to the briefing: https://pembinatrails.edsby.com/core/nodedl/386444021
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -86,10 +86,9 @@
       </li>
       <li>
         <p>
-          In <i>Directional Movement</i>, I can show how you can use <span class="code">Math.sin()</span> and <span class="code">Math.cos()</span>
+          In <i>Directional Movement</i>, I show how you can use <span class="code">Math.sin()</span> and <span class="code">Math.cos()</span>
           to convert an integer value responsible for resembling a direction in degrees into two separate values, one
-          for X movement, and the other for Y movement. I will also show how to convert these values back into a single
-          value with <span class="code">Math.atan2()</span>.
+          for X movement, and the other for Y movement.
         </p>
       </li>
     <p>
@@ -100,7 +99,9 @@
     </p>
     <hr />
     <h3>The Swing Library</h3>
-    <!-- Put an image here -->
+    <figure>
+      <img src="images/swing.png" alt="An image of a small window with three text fields and five buttons, resembling a calculator." />
+    </figure>
     <p class="brief">
       Java's Swing Library is a convenient class dedicated to providing windowing program abilities, as well as having
       components and containers within it/them. <span class="code">JFrame</span>, <span class="code">JLabel</span>,
@@ -111,7 +112,9 @@
     <a class="learn-more" href="swing.html">Click here to learn more about the Swing library.</a>
     <hr />
     <h3>KeyChecker</h3>
-    <!-- Put an image here -->
+    <figure>
+      <img src="images/keyboard.jpg" alt="An image of a pair of hands typing on a keyboard." />
+    </figure>
     <p class="brief">
       This is a basic non-static class that listens to the key presses of a AWT Component, and keeps them in a
       <span class="code">java.util.ArrayList</span>. You can then check the <span class="code">KeyChecker</span>
@@ -124,7 +127,9 @@
     <a class="learn-more" href="keychecker.html">Click here to learn more about the KeyChecker class.</a>
     <hr />
     <h3>Hitboxes</h3>
-    <!-- Put an image here -->
+    <figure>
+      <img src="images/hitbox-5.png" alt="An image of two squares and various calculations around them." width="400" />
+    </figure>
     <p class="brief">
       Here, I show &#x2014; mostly with math &#x2014; how to have two hitboxes detect collision with each other.
       I start with square hitboxes, but also how I suspect how circular hitboxes collide, though I have not tested
@@ -133,7 +138,9 @@
     <a class="learn-more" href="hitboxes.html">Click here to learn more about hitboxes and virtual collision.</a>
     <hr />
     <h3>Rotating Labels (RJLabels)</h3>
-    <!-- Put an image here -->
+    <figure>
+      <img src="images/rjlabel-1.png" alt="An image of the word 'Hello' tilted slightly." width="300" />
+    </figure>
     <p class="brief">
       In this section, I show how to procedurally rotate <span class="code">JLabel</span> objects by overriding
       their <span class="code">paintComponent()</span> method and using <span class="code">Graphics2D</span> to
@@ -144,7 +151,9 @@
     <a class="learn-more" href="rjlabels.html">Click here to learn more about rotating labels.</a>
     <hr />
     <h3>Directional Movement</h3>
-    <!-- Put an image here -->
+    <figure>
+      <img src="images/programmable-mouse-toy.jpg" alt="An image of a purple mouse toy with colourful buttons on its back." width="400" />
+    </figure>
     <p class="brief">
       In this section, I show how to have an on-screen element move in a particular direction measured in degrees.
       We use <span class="code">Math.sin()</span> and <span class="code">Math.cos()</span> to our advantage to do
@@ -154,6 +163,14 @@
       in which I demonstrate another situation where this is useful.
     </p>
     <a class="learn-more" href="directional-movement.html">Click here to learn more about orientation-based movement.</a>
+    <hr />
+    <h3>Read More</h3>
+    <!-- Find some stuff for the read/watch more -->
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/6zm8c6QFmjo?si=BqXk0RZEdejLNE8g" title="YouTube video player"
+      frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    </iframe>
+    <table></table>
     <hr />
     <p>
       I have more Java content I would like to talk about here, but I don't want to bother you or myself by adding too

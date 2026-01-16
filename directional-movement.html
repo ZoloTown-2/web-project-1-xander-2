@@ -1,7 +1,7 @@
 <!--
   Directional Movement page
-  Last edited: 01/15/2026
-  Last commit: directional-movement.html progress
+  Last edited: 01/16/2026
+  Last commit: Image raid
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -28,13 +28,6 @@
     <hr />
   </header>
   <main>
-    <!--
-      Talk about:
-        - How it works
-        - Sin and Cos
-        - Usage
-        - Scenarios
-    -->
     <h3>Summary</h3>
     <p>
       Directional movement, like hitboxes and collision, is mostly math. We are specifically using
@@ -56,7 +49,17 @@
       <span class="code">Math.cos()</span> to get our value. I don't think I should provide an example however, as the
       values returned are decimal-heavy no matter what you put in.
     </p>
-    <!-- Video of TurboWarp Sin+Cos project -->
+    <figure>
+      <video width="500" controls>
+        <source src="images/sin-and-cos.mp4" type="video/mp4" />
+      </video>
+      <figcaption>
+        Figure #1: A visual demonstration of how sine and cosine work. The center orb is completely dependent on the other 
+        two orbs, which are controlled by sine and cosine respectively. A circle is drawn to show the natural pattern of the
+        center orb. A triangle is drawn to show the angle from the center to the orbiting orb, as well as its sine and cosine
+        related arms. "Test" is a passively increasing variable, and "Sin" and "Cos" read off of this variable.
+      </figcaption>
+    </figure>
     <p class="brief">
       Anyways, now that we understand how sine and cosine work, we can use them in our program.
     </p>
@@ -189,9 +192,12 @@
       by the <span class="code">Thread</span> in <span class="code">Entity</span>, however its pace is being cut back a
       little from the <span class="code">Sleeper.sleep(int)</span> method, halting it for 5 milliseconds each call.
     </p>
-    <!-- Visual demo -->
-    <p>Perfect! I'm relieved that all of that worked out in the end. Where would I have seen this done before?</p>
-    <!-- Ketsui snapshot -->
+    <figure>
+      <img src="images/ketsui.png" width="300" alt="A screenshot of a manic shoot-em-up. Plentiful pink and blue orbs flying sparatically across the screen in various directions, the player ship barely poking out of the mess." />
+      <!-- Needs fig number! -->
+      <figcaption>A fun example of projectiles.</figcaption>
+    </figure>
+    <!-- Test Question -->
   </main>
   <footer>
     <hr />

@@ -1,7 +1,7 @@
 <!--
   Rotating Labels page
-  Last edited: 01/15/2026
-  Last commit: rjlabels.html progress
+  Last edited: 01/16/2026
+  Last commit: Image raid
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -28,12 +28,6 @@
     <hr />
   </header>
   <main>
-    <!--
-      Talk about:
-        - How to use them
-        - When to use them
-        - The class
-    -->
     <h3>Summary</h3>
     <p>
       The <span class="code">RJLabel</span> class is a <span class="code">JLabel</span> that has the easy ability
@@ -65,6 +59,10 @@
       sleep(5000);<br />
       rjlabel.rotateTo(22);
     </p>
+    <figure>
+      <img src="images/rjlabel-1.png" alt="The word 'hello' tilted 22 degrees to the right." width="400" />
+      <figcaption>Figure #1: Tilted text.</figcaption>
+    </figure>
     <p class="brief">
       Or, better yet:
     </p>
@@ -80,6 +78,12 @@
       &nbsp;&nbsp;sleep(10);<br />
       }
     </p>
+    <figure>
+      <video width="400" controls>
+        <source src="images/rjlabel-2.mp4" type="video/mp4" />
+      </video>
+      <figcaption>Figure #2: Rotating text. A little shaky, but it works.</figcaption>
+    </figure>
     <h3>The RJLabel Class</h3>
     <p class="brief">
       Here are the contents of the <span class="code">RJLabel</span> class. There are six constructors, one method, and
@@ -127,7 +131,7 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It's important that we convert our degrees into radians, because degrees are much easier to use for<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;us, but AWT needs radians for their methods.<br />
       &nbsp;&nbsp;&nbsp;&nbsp;*/<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;this.rotation = Math.toRadians(angle);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.rotation = Math.toRadians(rotation);<br />
       &nbsp;&nbsp;&nbsp;&nbsp;this.repaint();<br />
       &nbsp;&nbsp;}<br />
       &nbsp;&nbsp;@Override<br />
