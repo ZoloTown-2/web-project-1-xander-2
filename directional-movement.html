@@ -1,7 +1,7 @@
 <!--
   Directional Movement page
-  Last edited: 01/14/2026
-  Last commit: keychecker.html progress - A1
+  Last edited: 01/15/2026
+  Last commit: directional-movement.html progress
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +28,170 @@
     <hr />
   </header>
   <main>
-    <p>Initial commit</p>
+    <!--
+      Talk about:
+        - How it works
+        - Sin and Cos
+        - Usage
+        - Scenarios
+    -->
+    <h3>Summary</h3>
+    <p>
+      Directional movement, like hitboxes and collision, is mostly math. We are specifically using
+      <span class="code">Math.sin()</span> and <span class="code">Math.cos()</span> to create our function.
+      Just like <span class="code">RJLabel</span>, to have directional movement, we will need a direction to
+      move in. So, we will have an <span class="code">RJLabel</span> to be responsible for this. We can use its
+      <span class="code">rotation</span> variable to determine both which direction its image will be facing, as
+      well as which direction it will be moving in. 
+    </p>
+    <h3>Sin and Cos</h3>
+    <p class="brief">
+      First, we should get familiar with what we're doing with sine and cosine. We are working with angles, and the
+      roles that sine and cosine play are taking a single angle variable, and converting it into a percentage-like value
+      resembling how much a particular axis plays a role in that angle. One thing, however. We use degrees as our angle
+      measurement, and the program uses radians. This is not a difficult conversion, as the equation would simply
+      <span class="code">d &times; &pi; &div; 180</span>, letting <span class="code">d</span> be the degree value.
+      Though, in Java, we can just use <span class="code">Math.toRadians(d)</span> to make conversion easier.
+      Now that we have a radian value, we can plug that into <span class="code">Math.sin()</span> or
+      <span class="code">Math.cos()</span> to get our value. I don't think I should provide an example however, as the
+      values returned are decimal-heavy no matter what you put in.
+    </p>
+    <!-- Video of TurboWarp Sin+Cos project -->
+    <p class="brief">
+      Anyways, now that we understand how sine and cosine work, we can use them in our program.
+    </p>
+    <h3>How Directional Movement Works</h3>
+    <p class="brief">
+      Let's use a little bit of everything. We have already used Swing for the <span class="code">RJLabel</span>, which
+      we are using. On top of that, we should use <span class="code">KeyChecker</span> to detect key inputs from the user
+      to fire certain events. To top it off, we should provide ourselves with a hitbox to move along with the label. We have
+      just made what qualifies in my project as an <span class="code">Entity</span>. The <span class="code">Entity</span>
+      class provides us with everything we need to portray an on-screen "thing." Here is the code for this class:
+    </p>
+    <p class="brief code">
+      package project.base;<br />
+      import javax.swing.ImageIcon;<br />
+      public abstract class Entity extends RJLabel implements Runnable {<br />
+      &nbsp;&nbsp;public int x = 0;                            // Entity X pos<br />
+      &nbsp;&nbsp;public int y = 0;                            // Entity Y pos<br />
+      &nbsp;&nbsp;public int hbXO = 0;                         // Hitbox X offset<br />
+      &nbsp;&nbsp;public int hbYO = 0;                         // Hitbox Y offset<br />
+      &nbsp;&nbsp;public ImageIcon img = null;                 // Displayed image<br />
+      &nbsp;&nbsp;public Hitbox hb;                            // Linked hitbox<br />
+      &nbsp;&nbsp;public volatile boolean refreshing = true;   // Thread controller<br />
+      &nbsp;&nbsp;private Thread thread;                       // Auto-refreshing thread<br />
+      &nbsp;&nbsp;public Entity() {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;super();<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.hb = new Hitbox();<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// Centering our image content is actually quite crucial to minimizing image-cutting when moving.<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.setHorizontalAlignment(RJLabel.CENTER);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.setVerticalAlignment(RJLabel.CENTER);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.thread = new Thread(this);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;thread.setDaemon(true);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;thread.start();<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public void refresh() {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// This is what we do each frame; reposition and refresh
+      &nbsp;&nbsp;&nbsp;&nbsp;hb.x = this.x - this.getWidth() / 2;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;hb.y = this.y - this.getHeight() / 2;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.setIcon(this.img);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.setLocation((int) Math.round(hb.x));<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public void close() {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;/*<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;No matter what I try, I can't find a way to dispose of this thread.<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I'll just put these two lines here since they're the most important ones.<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Why does the thread never stop? Nothing else is referencing it, and I<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stop it with the interrupt() method and the boolean controller.<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;What I plan on making would have a memory leak within seconds if I don't<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;figure out a way to fix this.<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;*/<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.refreshing = false;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;thread.interrupt();<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;@Override<br />
+      &nbsp;&nbsp;public void run() {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;while (this.refreshing) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.refresh();<br /> // A whole lot of refreshing
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;}<br />
+      }
+    </p>
+    <p>
+      Phew, that's the <span class="code">Entity</span> class. The base abstract class. Let's get on with making an actual
+      <span class="code">Projectile</span> class, as that would best suit this scenario.
+    </p>
+    <p class="brief code">
+      package project.entities;<br />
+      import project.base.RJLabel;<br />
+      import project.base.Hitbox;<br />
+      import project.base.Sleeper; // Just for Sleeper.sleep();<br />
+      import javax.swing.ImageIcon;<br />
+      import java.awt.Container;<br />
+      public class Projectile extends Entity {<br />
+      &nbsp;&nbsp;public static final int PLAYER_SHOT = 0;<br />
+      &nbsp;&nbsp;public static final int BALL = 1;<br />
+      &nbsp;&nbsp;// And many others; like BULLET, LASER, MISSLE, etc.<br />
+      &nbsp;&nbsp;public double speed;                       // Projectile's velocity<br />
+      &nbsp;&nbsp;public int type;                           // The type, corrisponding to the enum-like values above<br />
+      &nbsp;&nbsp;private Container parent;                  // For independently removing itself from when no longer needed<br />
+      &nbsp;&nbsp;// We don't need a 'rotation' variable as we're using the RJLabel's variable.<br />
+      &nbsp;&nbsp;public Projectile(Container parent, int x, int y, int dir, int type, double speed) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;super();<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.parent = parent;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.rotation = rotation;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.speed = speed;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.type = type;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;switch (type) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case 0 -> {} // Haven't done this yet<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;case 1 -> {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// This would typically be procedurally generated graphics, but that's for another time<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.img = new ImageIcon("../Images/Projectiles/ball.png");<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.hb = new Hitbox(x, y, 5, 5);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.x = x;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.y = y;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.setBounds(x, y, 10, 10); // Entity doesn't resize on its own!<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// And more...<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default -> {}<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public boolean outOfBounds() {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;return (this.x &gt; 800 || this.x &lt; -100) || (this.y &gt; 800 || this.y &lt; -100);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// Assuming 800x800 are the bounds<br />
+      &nbsp;&nbsp;}<br />
+      <mark>
+        &nbsp;&nbsp;private void move() {<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;// Over here!<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;// rotation is the variable from RJLabel, which Entity extends, which we extend<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;// Here is our operation with sin and cos. Sin is for X, and Cos is for Y.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;this.x += Math.sin(Math.toRadians(rotation)) * speed;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;this.y += Math.cos(Math.toRadians(rotation)) * speed;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;if (this.outOfBounds()) {<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent.remove(this);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.close();<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// There are more complicated things here, but they're pretty unrelated<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;}<br />
+        &nbsp;&nbsp;}
+      </mark><br />
+        &nbsp;&nbsp;@Override<br />
+        &nbsp;&nbsp;public void refresh() {<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;this.move();<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;super.refresh();<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;Sleeper.sleep(5);<br />
+        &nbsp;&nbsp;}<br />
+      }
+    </p>
+    <p class="brief">
+      Please do me a favour and only read the highlighted parts. It's the only part that really matters.<br />
+      Anyways, here, we have the <span class="code">move()</span> method making our projectile move in the direction
+      they are facing, like we had researched. This <span class="code">move()</span> method is being called continuously
+      by the <span class="code">Thread</span> in <span class="code">Entity</span>, however its pace is being cut back a
+      little from the <span class="code">Sleeper.sleep(int)</span> method, halting it for 5 milliseconds each call.
+    </p>
+    <!-- Visual demo -->
+    <p>Perfect! I'm relieved that all of that worked out in the end. Where would I have seen this done before?</p>
+    <!-- Ketsui snapshot -->
   </main>
   <footer>
     <hr />
