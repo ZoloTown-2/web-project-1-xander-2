@@ -1,7 +1,7 @@
 /*
   All-around stylesheet
   Last edited: 01/13/2026
-  Last commit: keychecker.html progress - A3
+  Last commit: Table
 */
 /* The body has Arial-esc text */
 body {
@@ -32,6 +32,16 @@ figure {
 figcaption {
   font-style: italic;
   opacity: 0.75;
+}
+table, th {
+  border: 1px solid black;
+  padding: 5px;
+}
+table {
+  text-align: center;
+}
+td {
+  padding: 5px;
 }
 /* 
   Elements (typically spans) marked as "code" will be given a 
