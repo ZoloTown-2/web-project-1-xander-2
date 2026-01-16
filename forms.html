@@ -1,3 +1,8 @@
+<!--
+  Test Question page
+  Last edited: 01/16/2026
+  Last commit: Finalization?
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,24 +11,29 @@
   <title>Test Questions &#x2014; Program Development in Java</title>
   <link rel="stylesheet" href="style/main.css" />
   <style>
+    /* The pointer will, by default, be flipped */
     #test-question-pointer {
       rotate: 180deg;
     }
+    /* Offset for the shaded pointer as it is placed aside by default */
     #test-question-guide {
       left: -121px;
       position: relative;
       opacity: 0.5;
     }
+    /* Spacing for pointers */
     #test-question-pointer, #test-question-guide {
       margin: 20px;
     }
   </style>
   <script>
+    // Variable initiation
     let totalScore = 0;
     let pointer;
     let guide;
     let slider;
     let goal;
+    // This runs every time the slider changes value
     function update() {
       val = Math.floor(slider.value / 100 * 360);
       pointer.style.rotate = val + 'deg';
@@ -34,6 +44,7 @@
         totalScore++;
       }
     }
+    // This runs when the page loads
     document.addEventListener('DOMContentLoaded', () => {
       pointer = document.getElementById('test-question-pointer');
       guide = document.getElementById('test-question-guide');
@@ -42,6 +53,7 @@
       slider.addEventListener('mousemove', update);
       guide.style.rotate = goal + 'deg';
     });
+    // This runs when the Submit button has been pressed
     function checkAnswers() {
       let correctRadio1 = document.getElementById('tq-jcon-purpose');
       let correctRadio2 = document.getElementById('test-question-check');
@@ -82,6 +94,7 @@
         console.log('check2');
         totalScore++;
       }
+      // Show score
       alert(totalScore + ' / 7 points');
     }
   </script>
@@ -105,8 +118,24 @@
     <hr />
   </header>
   <main>
+    <!--
+      The form tag declares a form. Within it, you can use inputs, labels, textareas, fieldsets, and more.
+      A submit button and reset button will comply with the form it is in.
+
+      The GET method is what we use because we don't really know PHP yet.
+    -->
     <form method="get">
       <h3>Question #1: What is the difference between a <span class="code">JComponent</span> and a <span class="code">JContainer</span>?</h3>
+      <!--
+        Radio buttons must share the same name, but must differ in values.
+        They should have their own IDs, as any other element should.
+        The labels that accompany them use the for attribute to link themselves
+        to the radio button.
+      -->
+      <!--
+        I tried to choose the most keyword-based IDs and names for the input tags,
+        but it was slightly more thought-heavy than I thought it would be.
+      -->
       <input type="radio" id="tq-none" name="test-question-1" value="none" />
       <label for="tq-none">None.</label><br />
       <input type="radio" id="tq-jcon" name="test-question-1" value="jcon-no-purpose" />
@@ -117,6 +146,12 @@
       <p class="test-question code">
         JFrame frame = new JFrame("Project");
       </p>
+      <!--
+        The textarea is a multi-line code editor. I've tried to make it blend in
+        while still having some contrast for a noticibly clickable area.
+        The resizing has been disabled for textareas here.
+        Contents are case sensitive.
+      -->
       <textarea class="test-question code" id="test-question-code-1" spellcheck="false">// Initialize KeyChecker called 'kc'</textarea>
       <p class="test-question code">
         frame.setBounds(250, 250, 500, 500);<br />
@@ -134,6 +169,9 @@
       <label for="test-question-check">Option #2</label><br />
       <input type="radio" name="test-question-3" value="listen-for" id="test-question-listen" />
       <label for="test-question-listen">Option #3</label><br /><br />
+      <!--
+        These are simply lists of options.
+      -->
       <label>Option #1:</label>
       <p class="test-question code">
         while (true) {<br />
@@ -156,6 +194,11 @@
       </p>
       <h3>Question #4: On which axises are the hitboxes aligning?</h3>
       <p>Imagine that you have two rectangular hitboxes. Here are their attributes:</p>
+      <!--
+        Here is a table. It is declared with the table tag.
+        It consists of tr (table row) tags, which consist of either th (table heading) or
+        td (table data) tags.
+      -->
       <table>
         <tr>
           <th>&bull;</th>
@@ -183,11 +226,19 @@
           <td>40</td>
         </tr>
       </table>
+      <!--
+        Checkboxes are similar to radio buttons, however you can choose multiple at once.
+        Unlike radio buttons, they must have different names and values.
+      -->
       <input type="checkbox" name="test-question-x-axis" value="x-axis" id="test-question-x-axis" />
       <label for="test-question-x-axis">X-Axis</label><br />
       <input type="checkbox" name="test-question-y-axis" value="y-axis" id="test-question-y-axis" />
       <label for="test-question-y-axis">Y-Axis</label>
       <h3>Question #5: Move the slider to the correct position.</h3>
+      <!--
+        The range provides a 0-100 value depending on its placement on the bar. This can
+        be used as an alternative to the number input type.
+      -->
       <input type="range" id="test-question-slider" /><br />
       <img src="images/point.png" id="test-question-pointer" />
       <img src="images/point.png" id="test-question-guide" />
@@ -229,8 +280,15 @@
         KeyChecker.steer(pro);
       </p><br />
       <hr /><br />
+      <!--
+        This button is how we submit our forms. Since we are using the GET method, the inputs
+        can be found in the URL once this is clicked.
+      -->
       <input type="submit" value="Submit Answers" onclick="checkAnswers();" />
       <br /><br /><br />
+      <!--
+        This button resets the form to its default values.
+      -->
       <input type="reset" value="Reset Answers" />
     </form>
   </main>
