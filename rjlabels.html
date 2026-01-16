@@ -1,7 +1,7 @@
 <!--
   Rotating Labels page
-  Last edited: 01/14/2026
-  Last commit: keychecker.html progress - A1
+  Last edited: 01/15/2026
+  Last commit: rjlabels.html progress
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +28,129 @@
     <hr />
   </header>
   <main>
-    <p>Initial commit</p>
+    <!--
+      Talk about:
+        - How to use them
+        - When to use them
+        - The class
+    -->
+    <h3>Summary</h3>
+    <p>
+      The <span class="code">RJLabel</span> class is a <span class="code">JLabel</span> that has the easy ability
+      to rotate, whether it is a piece of text or an image. Though that is the extent of this class, it can be
+      useful in certain scenarios.
+    </p>
+    <h3>Usage</h3>
+    <p class="brief">
+      Here is how you use the class.
+    </p>
+    <p class="brief code">
+      JFrame frame = new JFrame("Project");<br />
+      // ...<br />
+      RJLabel rjlabel = new RJLabel("Hello", 45);<br />
+      frame.add(rjlabel);<br />
+      frame.setVisible(true);
+    </p>
+    <p class="brief">
+      You use the <span class="code">RJLabel</span> just like how you would typically use the <span class="code">JLabel</span>.
+      The only difference in this class is that there is a variable responsible for the orientation of the label, and that
+      you can assign the default value of this variable in each applicable constructor, like seen above. The
+      <span class="code">RJLabel</span> here would be created with a 45<sup>o</sup> angle. After the label is created, you can
+      also change its rotation with its <span class="code">rotateTo(int)</span> method.
+    </p>
+    <p class="brief code">
+      RJLabel rjlabel = new RJLabel("Hello", 0);<br />
+      frame.add(rjlabel);<br />
+      frame.setVisible(true);<br />
+      sleep(5000);<br />
+      rjlabel.rotateTo(22);
+    </p>
+    <p class="brief">
+      Or, better yet:
+    </p>
+    <p class="brief code">
+      RJLabel rjlabel = new RJLabel("Hello", 0);<br />
+      frame.add(rjlabel);<br />
+      frame.setVisible(true);<br />
+      int rotation = 0;<br />
+      while (true) {<br />
+      &nbsp;&nbsp;rotation++;<br />
+      &nbsp;&nbsp;rotation %= 360;<br />
+      &nbsp;&nbsp;rjlabel.rotateTo(rotation);<br />
+      &nbsp;&nbsp;sleep(10);<br />
+      }
+    </p>
+    <h3>The RJLabel Class</h3>
+    <p class="brief">
+      Here are the contents of the <span class="code">RJLabel</span> class. There are six constructors, one method, and
+      one <mark><u>overridden method (important)</u></mark>.
+    </p>
+    <p class="brief code">
+      public class RJLabel extends JLabel {<br />
+      &nbsp;&nbsp;private int rotation = 0;<br />
+      &nbsp;&nbsp;// The other six constructors are public, so I shouldn't need to override them<br />
+      &nbsp;&nbsp;/*<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;Also, I have no choice but to put the super() method at the start as putting it<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;anywhere else is an experimental part of Java at the time of writing.<br />
+      &nbsp;&nbsp;*/<br />
+      &nbsp;&nbsp;public RJLabel(int rotation) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;super();<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.rotateTo(rotation);<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public RJLabel(Icon image, int rotation) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;super(image);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.rotateTo(rotation);<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public RJLabel(Icon image, int horizontalAlignment) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;super(image, horizontalAlignment);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.rotateTo(rotation);<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public RJLabel(String text) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;super(text);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.rotateTo(rotation);<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public RJLabel(String text, Icon icon, int horizontalAlignment) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;super(text, icon, horizontalAlignment);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.rotateTo(rotation);<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public RJLabel(String text, int horizontalAlignment) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;super(text, horizontalAlignment);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.rotateTo(rotation);<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;public rotateTo(int rotation) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;/* <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It's important that we convert our degrees into radians, because degrees are much easier to use for<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;us, but AWT needs radians for their methods.<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;*/<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.rotation = Math.toRadians(angle);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;this.repaint();<br />
+      &nbsp;&nbsp;}<br />
+      &nbsp;&nbsp;@Override<br />
+      &nbsp;&nbsp;public void paintComponent(Graphics g) {<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// We're hijacking this method and editing its graphics as it's being processed<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;Graphics2D g2 = (Graphics2D) g;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// This is to center the image when we rotate it, as its pivot point starts at the top-left<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;int x = (int) this.getWidth() / 2;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;int y = (int) this.getHeight() / 2;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// Center the image by offsetting its pivot point to the center<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;g2.translate(x, y);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// Actually rotate the image<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;g2.rotate(this.rotation);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// ...and set back the pivot point to what it was at before.<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;g2.translate(-x, -y);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// Use these edited graphics instead of the lame old ones<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;super.paintComponent(g2);<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;// Dispose of unused memory whenever possible. JGC doesn't catch everything<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;g2.dispose();<br />
+      &nbsp;&nbsp;}<br />
+      }
+    </p>
+    <p class="brief">
+      The comments should explain what is happening in the rotation process. We are overriding the <span class="code">paintComponent(Graphics)</span> method
+      and editing its graphics before it is actually processed by the original <span class="code">paintComponent(Graphics)</span> method. In the long run, we
+      are rotating the image according to our rotation variable before sending it off to the superclass's method.
+    </p>
+    <!-- Test Question -->
   </main>
   <footer>
     <hr />
